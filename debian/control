@@ -1,0 +1,11 @@
+Source: python-django-dust
+Section: unknown
+Priority: extra
+Maintainer: Ivan Sagalaev <isagalaev@yandex-team.ru>
+Build-Depends: debhelper (>= 4), python-support
+Standards-Version: 3.7.2
+
+Package: python-django-dust
+Architecture: all
+Depends: python-support, python (>= 2.4) | python2.4, python-django-snapshot, python-httplib2 (>=0.4)
+Description: Distributed Upload STorage for Django. A file backend that mirrors all incoming media files to several servers.

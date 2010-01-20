@@ -1,0 +1,26 @@
+python-django-dust (0.4) unstable; urgency=low
+
+  * наследование DistributionError от IOError
+
+ -- Ivan Sagalaev <isagalaev@yandex-team.ru>  Wed, 11 Mar 2009 14:47:24 +0300
+
+python-django-dust (0.3) unstable; urgency=low
+
+  * Реализация path для локального режима
+  * Фиксы команды process_failed_media
+  * Зависимость от python-httplib2 (>= 0.4), чтобы был таймаут вызова
+
+ -- Ivan Sagalaev <isagalaev@yandex-team.ru>  Mon, 29 Dec 2008 19:04:09 +0300
+
+python-django-dust (0.2) unstable; urgency=low
+
+  * Архитектурный рефакторинг
+  * Возможность использовать или не использовать локальный диск
+
+ -- Ivan Sagalaev <isagalaev@yandex-team.ru>  Mon, 29 Dec 2008 15:15:27 +0300
+
+python-django-dust (0.1) unstable; urgency=low
+
+  * Initial beta release
+
+ -- Ivan Sagalaev <isagalaev@yandex-team.ru>  Tue, 18 Nov 2008 19:59:03 +0300
