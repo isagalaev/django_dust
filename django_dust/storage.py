@@ -65,8 +65,8 @@ class DistributedStorage(Storage):
         for host, result in zip(self.hosts, results):
             if isinstance(result, socket.error):
                 if successful_host is not None:
-                    from django_dust.models import Retry # this causes errors when imported at module level
-                    Retry.objects.create(
+                    from django_dust import retry_storage # this causes errors when imported at module level
+                    retry_storage.create(
                         operation=func.__name__,
                         target_host=host,
                         source_host=successful_host,
@@ -99,8 +99,8 @@ class DistributedStorage(Storage):
         return name
 
     def get_available_name(self, name):
-        from django_dust.models import Retry # this causes errors when imported at module level
-        while self.exists(name) or Retry.objects.filter(filename=name):
+        from django_dust import retry_storage # this causes errors when imported at module level
+        while self.exists(name) or retry_storage.filter_by_filename(name):
             try:
                 dot_index = name.rindex('.')
             except ValueError: # filename has no dot

@@ -12,12 +12,14 @@ import logging
 from django.core.management.base import NoArgsCommand
 from django.conf import settings
 
-from django_dust.models import Retry
+from django_dust import retry_storage
 from django_dust.storage import DistributedStorage
 from django_dust.http import HTTPError
 
 logger = logging.getLogger('django_dust')
 
+def _to_unicode(retry):
+    return u'%(operation)s %(target_host)s %(filename)s' % retry
 
 class Command(NoArgsCommand):
     help = "Retries failed attempts to distribute media files among media servers"
@@ -25,18 +27,18 @@ class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         logger.info('Initializing storage')
         storage = DistributedStorage()
-        retries = Retry.objects.all()
+        retries = retry_storage.all()
         logger.info('Retries to process: %s' % len(retries))
         for retry in retries:
-            logger.info('Retry: %s' % retry)
+            logger.info('Retry: %s' % _to_unicode(retry))
             try:
-                if retry.operation == 'put':
-                    body = storage.transport.get(retry.source_host, retry.filename)
-                    storage.transport.put(retry.target_host, retry.filename, body)
-                if retry.operation == 'delete':
-                    storage.transport.delete(retry.target_host, retry.filename)
-                retry.delete()
+                if retry['operation'] == 'put':
+                    body = storage.transport.get(retry['source_host'], retry['filename'])
+                    storage.transport.put(retry['target_host'], retry['filename'], body)
+                if retry['operation'] == 'delete':
+                    storage.transport.delete(retry['target_host'], retry['filename'])
+                retry_storage.delete(retry)
             except (socket.error, HTTPError), e:
-                logger.warning('Retry <%s> not processed: %s' % (retry, e))
+                logger.warning('Retry <%s> not processed: %s' % (_to_unicode(retry), e))
                 pass
-        logger.info('Done processing retries. Remaning: %s' % Retry.objects.count())
+        logger.info('Done processing retries. Remaning: %s' % retry_storage.count())
