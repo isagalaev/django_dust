@@ -5,12 +5,10 @@ Command for processing a queue of failed media distribution operations
 
 Reports are sent to a logger named 'django_dust'.
 '''
-import httplib2
 import socket
 import logging
 
 from django.core.management.base import NoArgsCommand
-from django.conf import settings
 
 from django_dust import retry_storage
 from django_dust.storage import DistributedStorage
