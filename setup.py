@@ -7,5 +7,6 @@ setup(
         'django_dust',
         'django_dust.management',
         'django_dust.management.commands',
+        'django_dust.backends'
     ],
 )
