@@ -1,5 +1,6 @@
 
 class BaseRetryStorage(object):
+    """Plugable interface for retry queue storage"""
     fields = ['operation', 'target_host', 'source_host', 'filename']
     
     def count(self):
