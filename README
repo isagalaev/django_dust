@@ -44,12 +44,24 @@ by keeping a queue of failed operations to repeat them afterwards.
 
 6.  Define backend settings:
 
+        # Importing default Dust settings
+        from django_dust.settings import *
+
+    Configure hosts:
+
         # List of file storage hosts
         DUST_HOSTS = [
             'hostname1',
             'hostanem2',
             # ...
         ]
+
+    Other optional settings:
+
+        # Retry storage backend setting -- import path for storage module.
+        # Default is DB backend. See django_dust/backends/base for class
+        # and method reference
+        DUST_RETRY_STORAGE_BACKEND = 'django_dust.backends.db'
 
         # Whether to use a local file system. If files are stored on those same
         # servers that handle web requests then setting this flag to True
@@ -63,7 +75,6 @@ by keeping a queue of failed operations to repeat them afterwards.
     When using local file system make sure that `MEDIA_ROOT` points to the same
     place where a web server looks for files under `MEDIA_URL`. This is usually
     already the case.
-
 
 ## SETTING UP HTTP SERVERS
 
