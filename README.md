@@ -44,11 +44,6 @@ by keeping a queue of failed operations to repeat them afterwards.
 
 6.  Define backend settings:
 
-        # Importing default Dust settings
-        from django_dust.settings import *
-
-    Configure hosts:
-
         # List of file storage hosts
         DUST_HOSTS = [
             'hostname1',

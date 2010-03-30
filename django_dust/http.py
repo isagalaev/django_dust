@@ -2,7 +2,7 @@
 import httplib2
 from urlparse import urlsplit
 
-from django.conf import settings
+from django_dust.settings import getsetting
 
 
 class HTTPError(Exception):
@@ -15,7 +15,7 @@ class HTTPTransport(object):
     Uses httplib2 and expects that target HTTP host support PUT and DELETE
     methods (apart from the all usual).
     '''
-    timeout = getattr(settings, 'DUST_TIMEOUT', 2)
+    timeout = getsetting('DUST_TIMEOUT')
 
     def __init__(self, base_url):
         scheme, host, path, query, fragment = urlsplit(base_url)
