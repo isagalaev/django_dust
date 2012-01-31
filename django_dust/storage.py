@@ -93,7 +93,6 @@ class DistributedStorage(Storage):
         return base.ContentFile(self.transport.get(host, name))
 
     def _save(self, name, content):
-        name = self.get_available_name(name)
         content.seek(0)
         body = content.read()
         self._execute(self.transport.put, name, [body])
